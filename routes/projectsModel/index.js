@@ -47,5 +47,24 @@ Router.post("/", (req, res) => {
       .json({ errorMessage: "Project name and description must be included" });
   }
 });
-
+Router.put("/:id", (req, res) => {
+  const editProject = req.body;
+  if (editProject.name || editProject.description || editProject.completed) {
+    Project.update(req.params.id, editProject)
+      .then(project => {
+        res.status(202).json({ project });
+      })
+      .catch(() => {
+        res
+          .status(500)
+          .json({ errorMessage: "Unable to update project in database." });
+      });
+  } else {
+    res
+      .status(400)
+      .json({
+        errorMessage: "No information was added to be updated in that project"
+      });
+  }
+});
 module.exports = Router;
