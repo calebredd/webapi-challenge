@@ -1,6 +1,7 @@
 const express = require("express"),
   Router = express(),
-  Action = require("../../data/helpers/actionModel"),
+  actionsRoute = require("./actionsModel"),
+  // Action = require("../../data/helpers/actionModel"),
   Project = require("../../data/helpers/projectModel");
 Router.get("/", (req, res) => {
   Project.get()
@@ -16,12 +17,24 @@ Router.get("/:id", (req, res) => {
     .then(project => {
       res.status(200).json({ project });
     })
-    .catch(error => {
+    .catch(() => {
       res
         .status(500)
         .json({ errorMessage: "Unable to locate project database." });
     });
 });
+Router.get("/:id/actions", (req, res) => {
+  Project.getProjectActions(req.params.id)
+    .then(actions => {
+      res.status(200).json({ actions });
+    })
+    .catch(() => {
+      res.status(500).json({
+        errorMessage: "Unable to locate project's action's in the database."
+      });
+    });
+});
+Router.use("/:id/actions", actionsRoute);
 Router.post("/", (req, res) => {
   const newProject = req.body;
   if (newProject.name && newProject.description) {
@@ -79,7 +92,7 @@ Router.delete("/:id", (req, res) => {
             .json({ errorMessage: "Unable to access the database." });
         });
     })
-    .catch(error => {
+    .catch(() => {
       res
         .status(500)
         .json({ errorMessage: "Unable to remove project from database." });
