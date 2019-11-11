@@ -12,3 +12,20 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+
+const express = require("express"),
+  server = express(),
+  apiRoutes = require("./routes"),
+  port = process.env.PORT || 5000,
+  cors = require("cors");
+
+server.use(express.json());
+server.use(cors());
+server.use("/api", apiRoutes);
+server.get("/", (req, res) => {
+  res.status(200).send("Welcome to the Server");
+});
+
+server.listen(port, () => {
+  console.log(`Server listening on port: ${port}`);
+});
