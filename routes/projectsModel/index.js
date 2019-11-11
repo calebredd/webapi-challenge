@@ -60,11 +60,29 @@ Router.put("/:id", (req, res) => {
           .json({ errorMessage: "Unable to update project in database." });
       });
   } else {
-    res
-      .status(400)
-      .json({
-        errorMessage: "No information was added to be updated in that project"
-      });
+    res.status(400).json({
+      errorMessage: "No information was added to be updated in that project"
+    });
   }
+});
+Router.delete("/:id", (req, res) => {
+  Project.remove(req.params.id)
+    .then(project => {
+      res.status(202);
+      Project.get()
+        .then(projects => {
+          res.status(200).json(projects);
+        })
+        .catch(() => {
+          res
+            .status(500)
+            .json({ errorMessage: "Unable to access the database." });
+        });
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Unable to remove project from database." });
+    });
 });
 module.exports = Router;
