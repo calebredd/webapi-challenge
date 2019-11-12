@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "Node API Challenge",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/webapi-challenge.git"
@@ -19,11 +25,15 @@
   },
   "homepage": "https://github.com/LambdaSchool/webapi-challenge#readme",
   "dependencies": {
+    "concurrently": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "helmet": "^3.21.2",
     "knex": "^0.20.1",
     "sqlite3": "^4.1.0"
   },
   "devDependencies": {
-    "knex-cleaner": "^1.3.0"
+    "knex-cleaner": "^1.3.0",
+    "nodemon": "^1.19.4"
   }
 }

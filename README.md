@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Routes and Error handling.
+
 - [ ] Describe Middleware?
+
+Checkpoints to verify information. If successful next() is called to move forward.
 
 - [ ] Describe a Resource?
 
+Something used to make something else function better. Module.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+Status code and either json() or send()
+
 - [ ] How can we partition our application into sub-applications?
+
+Module exports and imports. Any route can be considered a mini server app.
 
 ## Project Setup
 
